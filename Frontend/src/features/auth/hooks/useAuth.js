@@ -45,14 +45,14 @@ export const useAuth = () => {
         const data = await getMe();
         setUser(data.user);
       } catch (err) {
-        setUser(null); // not authenticated, or request failed
+        setUser(null);
       } finally {
         setLoading(false);
       }
     };
 
     getAndSetUser();
-  }, []); // run once on mount
+  }, []);
 
   return { user, loading, handleRegister, handleLogin, handleLogout };
 };
