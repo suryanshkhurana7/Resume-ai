@@ -5,11 +5,12 @@
   padding: 0%;
   box-sizing: border-box;
 }
+
 html,
 body,
 #root {
   width: 100%;
-  background-color: rgb(20, 20, 20);
+  background-color: #161616;
   color: whitesmoke;
   font-family:
     system-ui,
@@ -23,4 +24,8 @@ body,
     "Open Sans",
     "Helvetica Neue",
     sans-serif;
+}
+
+.highlight {
+  color: #d20d3b;
 }
