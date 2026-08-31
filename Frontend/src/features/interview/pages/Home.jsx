@@ -7,17 +7,33 @@ const Home = () => {
   const { loading, generateReport, reports } = useInterview();
   const [jobDescription, setJobDescription] = useState("");
   const [selfDescription, setSelfDescription] = useState("");
+  const [error, setError] = useState("");
   const resumeInputRef = useRef();
 
   const navigate = useNavigate();
 
   const handleGenerateReport = async () => {
-    const resumeFile = resumeInputRef.current.files[0];
+    setError("");
+    const resumeFile = resumeInputRef.current?.files?.[0];
+
+    if (!resumeFile && !selfDescription.trim()) {
+      setError("Please upload a resume or add a self-description.");
+      return;
+    }
+
     const data = await generateReport({
       jobDescription,
       selfDescription,
       resumeFile,
     });
+
+    if (!data || !data._id) {
+      setError(
+        "Something went wrong generating your report. Please try again.",
+      );
+      return;
+    }
+
     navigate(`/interview/${data._id}`);
   };
 
@@ -68,6 +84,7 @@ const Home = () => {
               <span className="badge badge--required">Required</span>
             </div>
             <textarea
+              value={jobDescription}
               onChange={(e) => {
                 setJobDescription(e.target.value);
               }}
@@ -75,7 +92,9 @@ const Home = () => {
               placeholder={`Paste the full job description here...\ne.g. 'Senior Frontend Engineer at Google requires proficiency in React, TypeScript, and large-scale system design...'`}
               maxLength={5000}
             />
-            <div className="char-counter">0 / 5000 chars</div>
+            <div className="char-counter">
+              {jobDescription.length} / 5000 chars
+            </div>
           </div>
 
           {/* Vertical Divider */}
@@ -153,6 +172,7 @@ const Home = () => {
                 Quick Self-Description
               </label>
               <textarea
+                value={selfDescription}
                 onChange={(e) => {
                   setSelfDescription(e.target.value);
                 }}
@@ -219,10 +239,12 @@ const Home = () => {
             Generate My Interview Strategy
           </button>
         </div>
+
+        {error && <p className="form-error">{error}</p>}
       </div>
 
       {/* Recent Reports List */}
-      {reports.length > 0 && (
+      {reports?.length > 0 && (
         <section className="recent-reports">
           <h2>My Recent Interview Plans</h2>
           <ul className="reports-list">

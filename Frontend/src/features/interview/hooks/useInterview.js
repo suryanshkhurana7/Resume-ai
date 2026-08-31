@@ -1,16 +1,18 @@
 import {
-  generateInterviewReport,
   getAllInterviewReports,
+  generateInterviewReport,
   getInterviewReportById,
 } from "../services/interview.api";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { InterviewContext } from "../interview.context";
+import { useParams } from "react-router";
 
 export const useInterview = () => {
   const context = useContext(InterviewContext);
+  const { interviewId } = useParams();
 
   if (!context) {
-    throw new Error("useInterview must be used within InterviewProvider");
+    throw new Error("useInterview must be used within an InterviewProvider");
   }
 
   const { loading, setLoading, report, setReport, reports, setReports } =
@@ -22,59 +24,68 @@ export const useInterview = () => {
     resumeFile,
   }) => {
     setLoading(true);
-    let response = null;
     try {
-      response = await generateInterviewReport({
+      const response = await generateInterviewReport({
         jobDescription,
         selfDescription,
         resumeFile,
       });
-      setReport(response.interviewReport);
+      const result = response?.interviewReport ?? null;
+      setReport(result);
+      return result;
     } catch (error) {
-      console.error("Error generating report", error);
-      throw error;
+      console.log(error);
+      return null;
     } finally {
       setLoading(false);
     }
-    return response.interviewReport;
   };
 
   const getReportById = async (interviewId) => {
     setLoading(true);
-    let response = null;
     try {
-      response = await getInterviewReportById(interviewId);
-      setReport(response.interviewReport);
+      const response = await getInterviewReportById(interviewId);
+      const result = response?.interviewReport ?? null;
+      setReport(result);
+      return result;
     } catch (error) {
-      console.error("Error fetching report", error);
-      throw error;
+      console.log(error);
+      return null;
     } finally {
       setLoading(false);
     }
-    return response.interviewReport;
   };
 
   const getReports = async () => {
     setLoading(true);
-    let response = null;
     try {
-      response = await getAllInterviewReports();
-      setReports(response.interviewReports);
+      const response = await getAllInterviewReports();
+      const list = response?.interviewReports ?? [];
+      setReports(list);
+      return list;
     } catch (error) {
-      console.error("Error fetching reports", error);
-      throw error;
+      console.log(error);
+      setReports([]);
+      return [];
     } finally {
       setLoading(false);
     }
-    return response.interviewReports;
   };
 
+  useEffect(() => {
+    if (interviewId) {
+      getReportById(interviewId);
+    } else {
+      getReports();
+    }
+  }, [interviewId]);
+
   return {
-    generateReport,
-    getReportById,
-    getReports,
     loading,
     report,
     reports,
+    generateReport,
+    getReportById,
+    getReports,
   };
 };

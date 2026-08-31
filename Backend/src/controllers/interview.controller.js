@@ -61,6 +61,7 @@ async function getAllInterviewReportsController(req, res) {
     );
   res.status(200).json({
     message: "Interview reports fetched successfully",
+    interviewReports,
   });
 }
 
