@@ -3,17 +3,27 @@
   outline: none;
   padding-inline: 1.5rem;
   padding-block: 0.75rem;
-  border-radius: 1rem;
+  border-radius: 0.6rem;
   cursor: pointer;
-
-  transition: all 0.3s ease-in-out;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.01em;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 
   &.primary-button {
-    background-color: #e1034d;
-    color: white;
+    background: linear-gradient(135deg, #6c5ce7 0%, #5a4bd1 100%);
+    color: #fff;
+    box-shadow: 0 2px 12px rgba(108, 92, 231, 0.25);
+
+    &:hover {
+      background: linear-gradient(135deg, #7c6df0 0%, #6c5ce7 100%);
+      box-shadow: 0 4px 20px rgba(108, 92, 231, 0.4);
+      transform: translateY(-1px);
+    }
   }
 
   &:active {
-    transform: scale(0.9);
+    transform: scale(0.97) translateY(0);
   }
 }

@@ -1,34 +1,44 @@
-// ── Shared Variables (mirrors home.scss theme) ────────────────────────────────
-$bg-page: #0d1117;
-$bg-card: #161b22;
-$bg-panel: #1c2230;
-$bg-input: #1e2535;
-$border-color: #2a3348;
-$text-primary: #e6edf3;
-$text-muted: #7d8590;
-$accent: #ff2d78;
-$font-stack:
-  system-ui,
-  -apple-system,
-  BlinkMacSystemFont,
-  "Segoe UI",
-  Roboto,
-  sans-serif;
+// ── Shared Variables ──────────────────────────────────────────────────────────
+$bg-page: #0a0e17;
+$bg-card: #111827;
+$bg-panel: #151d2e;
+$bg-input: #1a2235;
+$border-color: #1e293b;
+$border-hover: #334155;
+$text-primary: #e8ecf4;
+$text-muted: #7c8498;
+$accent: #6c5ce7;
+$accent-light: #a29bfe;
+$accent-glow: rgba(108, 92, 231, 0.2);
+$font-stack: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
 // severity palette
-$severity-high: #ff4d4d;
-$severity-medium: #f5a623;
-$severity-low: #3fb950;
+$severity-high: #f87171;
+$severity-medium: #fbbf24;
+$severity-low: #34d399;
 
 *::-webkit-scrollbar {
-  display: none;
+  width: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba($text-muted, 0.2);
+  border-radius: 3px;
+
+  &:hover {
+    background: rgba($text-muted, 0.35);
+  }
 }
 
 // ── Page Shell ────────────────────────────────────────────────────────────────
 .interview-page {
   width: 100%;
   min-height: 100vh;
-  background-color: $bg-page;
+  background: radial-gradient(ellipse at 20% 0%, rgba(108, 92, 231, 0.05) 0%, $bg-page 50%);
   color: $text-primary;
   font-family: $font-stack;
   display: flex;
@@ -41,23 +51,27 @@ $severity-low: #3fb950;
 .interview-layout {
   display: flex;
   width: 100%;
-  max-width: 1280px;
+  max-width: 1320px;
   margin: 0 auto;
   background-color: $bg-card;
   border: 1px solid $border-color;
   border-radius: 1rem;
   justify-content: space-between;
+  box-shadow:
+    0 4px 32px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(108, 92, 231, 0.04);
+  overflow: hidden;
 }
 
 .interview-divider {
   width: 1px;
-  background-color: $border-color;
+  background: linear-gradient(to bottom, transparent, $border-color, transparent);
   flex-shrink: 0;
 }
 
 // ── Left Nav ─────────────────────────────────────────────────────────────────
 .interview-nav {
-  width: 220px;
+  width: 230px;
   flex-shrink: 0;
   padding: 1.75rem 1rem;
   display: flex;
@@ -65,11 +79,17 @@ $severity-low: #3fb950;
   justify-content: space-between;
   gap: 0.25rem;
 
+  .nav-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
   &__label {
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     color: $text-muted;
     padding: 0 0.75rem;
     margin-bottom: 0.5rem;
@@ -80,30 +100,29 @@ $severity-low: #3fb950;
     align-items: center;
     gap: 0.6rem;
     width: 100%;
-    padding: 0.65rem 0.75rem;
+    padding: 0.7rem 0.75rem;
     background: none;
     border: none;
     border-radius: 0.5rem;
     color: $text-muted;
     font-family: $font-stack;
-    font-size: 0.875rem;
+    font-size: 0.85rem;
     cursor: pointer;
     text-align: left;
-    transition:
-      background-color 0.15s,
-      color 0.15s;
+    transition: all 0.2s ease;
 
     &:hover {
-      background-color: $bg-panel;
+      background-color: rgba($accent, 0.05);
       color: $text-primary;
     }
 
     &--active {
-      background-color: rgba($accent, 0.1);
-      color: $accent;
+      background: linear-gradient(135deg, rgba($accent, 0.12), rgba($accent, 0.06));
+      color: $accent-light;
+      font-weight: 500;
 
       .interview-nav__icon svg {
-        stroke: $accent;
+        stroke: $accent-light;
       }
     }
   }
@@ -139,17 +158,18 @@ $severity-low: #3fb950;
   border-bottom: 1px solid $border-color;
 
   h2 {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     font-weight: 700;
     color: $text-primary;
     margin: 0;
+    letter-spacing: -0.01em;
   }
 
   &__count {
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     color: $text-muted;
     background-color: $bg-panel;
-    padding: 0.15rem 0.6rem;
+    padding: 0.2rem 0.65rem;
     border-radius: 2rem;
     border: 1px solid $border-color;
   }
@@ -165,32 +185,33 @@ $severity-low: #3fb950;
 .q-card {
   background-color: $bg-panel;
   border: 1px solid $border-color;
-  border-radius: 0.6rem;
+  border-radius: 0.75rem;
   overflow: hidden;
-  transition: border-color 0.2s;
+  transition: all 0.25s ease;
 
   &:hover {
-    border-color: lighten($border-color, 8%);
+    border-color: $border-hover;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
   }
 
   &__header {
     display: flex;
     align-items: flex-start;
     gap: 0.75rem;
-    padding: 0.9rem 1rem;
+    padding: 1rem 1.15rem;
     cursor: pointer;
     user-select: none;
   }
 
   &__index {
     flex-shrink: 0;
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     font-weight: 700;
-    color: $accent;
-    background-color: rgba($accent, 0.1);
-    border: 1px solid rgba($accent, 0.2);
-    border-radius: 0.3rem;
-    padding: 0.15rem 0.4rem;
+    color: $accent-light;
+    background: linear-gradient(135deg, rgba($accent, 0.12), rgba($accent, 0.06));
+    border: 1px solid rgba($accent, 0.18);
+    border-radius: 0.35rem;
+    padding: 0.18rem 0.45rem;
     margin-top: 2px;
   }
 
@@ -200,28 +221,29 @@ $severity-low: #3fb950;
     font-size: 0.9rem;
     font-weight: 500;
     color: $text-primary;
-    line-height: 1.5;
+    line-height: 1.55;
   }
 
   &__chevron {
     flex-shrink: 0;
     color: $text-muted;
-    transition: transform 0.2s;
+    transition: all 0.25s ease;
     margin-top: 2px;
 
     &--open {
       transform: rotate(180deg);
-      color: $accent;
+      color: $accent-light;
     }
   }
 
   &__body {
-    padding: 0 1rem 1rem;
+    padding: 0 1.15rem 1.15rem;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.85rem;
     border-top: 1px solid $border-color;
-    padding-top: 0.75rem;
+    padding-top: 0.85rem;
+    animation: card-expand 0.3s ease;
   }
 
   &__section {
@@ -231,32 +253,43 @@ $severity-low: #3fb950;
 
     p {
       margin: 0;
-      font-size: 0.835rem;
-      color: lighten($text-muted, 15%);
-      line-height: 1.6;
+      font-size: 0.85rem;
+      color: #adb3c2;
+      line-height: 1.7;
     }
   }
 
   &__tag {
-    font-size: 0.68rem;
+    font-size: 0.66rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    padding: 0.15rem 0.5rem;
-    border-radius: 0.25rem;
+    letter-spacing: 0.07em;
+    padding: 0.18rem 0.55rem;
+    border-radius: 2rem;
     width: fit-content;
 
     &--intention {
-      color: #a78bfa;
-      background-color: rgba(#a78bfa, 0.1);
-      border: 1px solid rgba(#a78bfa, 0.2);
+      color: #c4b5fd;
+      background-color: rgba(#c4b5fd, 0.1);
+      border: 1px solid rgba(#c4b5fd, 0.18);
     }
 
     &--answer {
-      color: #3fb950;
-      background-color: rgba(#3fb950, 0.1);
-      border: 1px solid rgba(#3fb950, 0.2);
+      color: #34d399;
+      background-color: rgba(#34d399, 0.1);
+      border: 1px solid rgba(#34d399, 0.18);
     }
+  }
+}
+
+@keyframes card-expand {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -275,7 +308,7 @@ $severity-low: #3fb950;
     top: 0;
     bottom: 0;
     width: 2px;
-    background: linear-gradient(to bottom, $accent, rgba($accent, 0.1));
+    background: linear-gradient(to bottom, $accent, rgba($accent, 0.08));
     border-radius: 1px;
   }
 }
@@ -298,6 +331,13 @@ $severity-low: #3fb950;
     border-radius: 50%;
     background-color: $bg-card;
     border: 2px solid $accent;
+    transition: all 0.25s ease;
+    box-shadow: 0 0 0 3px rgba($accent, 0.1);
+  }
+
+  &:hover::before {
+    box-shadow: 0 0 0 5px rgba($accent, 0.2);
+    background-color: rgba($accent, 0.1);
   }
 
   &__header {
@@ -307,12 +347,12 @@ $severity-low: #3fb950;
   }
 
   &__badge {
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     font-weight: 700;
-    color: $accent;
-    background-color: rgba($accent, 0.1);
-    border: 1px solid rgba($accent, 0.25);
-    padding: 0.1rem 0.5rem;
+    color: $accent-light;
+    background: linear-gradient(135deg, rgba($accent, 0.12), rgba($accent, 0.06));
+    border: 1px solid rgba($accent, 0.2);
+    padding: 0.12rem 0.55rem;
     border-radius: 2rem;
   }
 
@@ -329,15 +369,15 @@ $severity-low: #3fb950;
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
+    gap: 0.4rem;
 
     li {
       display: flex;
       align-items: flex-start;
       gap: 0.5rem;
-      font-size: 0.845rem;
-      color: lighten($text-muted, 12%);
-      line-height: 1.5;
+      font-size: 0.85rem;
+      color: #9fa6b6;
+      line-height: 1.55;
     }
   }
 
@@ -346,24 +386,24 @@ $severity-low: #3fb950;
     width: 5px;
     height: 5px;
     border-radius: 50%;
-    background-color: $text-muted;
+    background-color: rgba($accent, 0.5);
     margin-top: 8px;
   }
 }
 
 // ── Right Sidebar ─────────────────────────────────────────────────────────────
 .interview-sidebar {
-  width: 240px;
+  width: 250px;
   flex-shrink: 0;
   padding: 1.75rem 1.25rem;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1.5rem;
 }
 
 .sidebar-divider {
   height: 1px;
-  background-color: $border-color;
+  background: linear-gradient(to right, transparent, $border-color, transparent);
 }
 
 // Match Score
@@ -371,46 +411,63 @@ $severity-low: #3fb950;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.75rem;
 
   &__label {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     color: $text-muted;
     margin: 0;
     align-self: flex-start;
   }
 
   &__ring {
-    width: 90px;
-    height: 90px;
+    width: 96px;
+    height: 96px;
     border-radius: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     border: 4px solid;
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      border: 1px solid;
+      opacity: 0.15;
+    }
 
     &.score--high {
       border-color: $severity-low;
+      box-shadow: 0 0 20px rgba($severity-low, 0.15);
+      &::after { border-color: $severity-low; }
     }
 
     &.score--mid {
       border-color: $severity-medium;
+      box-shadow: 0 0 20px rgba($severity-medium, 0.15);
+      &::after { border-color: $severity-medium; }
     }
 
     &.score--low {
       border-color: $severity-high;
+      box-shadow: 0 0 20px rgba($severity-high, 0.15);
+      &::after { border-color: $severity-high; }
     }
   }
 
   &__value {
-    font-size: 1.6rem;
+    font-size: 1.75rem;
     font-weight: 800;
     color: $text-primary;
     line-height: 1;
+    letter-spacing: -0.02em;
   }
 
   &__pct {
@@ -421,9 +478,10 @@ $severity-low: #3fb950;
 
   &__sub {
     margin: 0;
-    font-size: 0.75rem;
+    font-size: 0.78rem;
     color: $severity-low;
     text-align: center;
+    font-weight: 500;
   }
 }
 
@@ -434,10 +492,10 @@ $severity-low: #3fb950;
   gap: 0.75rem;
 
   &__label {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     color: $text-muted;
     margin: 0;
   }
@@ -453,25 +511,131 @@ $severity-low: #3fb950;
   font-size: 0.775rem;
   font-weight: 500;
   padding: 0.3rem 0.7rem;
-  border-radius: 0.4rem;
+  border-radius: 2rem;
   border: 1px solid;
   cursor: default;
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
 
   &--high {
     color: $severity-high;
-    background-color: rgba($severity-high, 0.1);
-    border-color: rgba($severity-high, 0.25);
+    background-color: rgba($severity-high, 0.08);
+    border-color: rgba($severity-high, 0.2);
   }
 
   &--medium {
     color: $severity-medium;
-    background-color: rgba($severity-medium, 0.1);
-    border-color: rgba($severity-medium, 0.25);
+    background-color: rgba($severity-medium, 0.08);
+    border-color: rgba($severity-medium, 0.2);
   }
 
   &--low {
     color: $severity-low;
-    background-color: rgba($severity-low, 0.1);
-    border-color: rgba($severity-low, 0.25);
+    background-color: rgba($severity-low, 0.08);
+    border-color: rgba($severity-low, 0.2);
+  }
+}
+
+// ── Responsive ───────────────────────────────────────────────────────────────
+@media (max-width: 1024px) {
+  .interview-sidebar {
+    display: none;
+  }
+
+  .interview-layout {
+    // hide last divider when sidebar is hidden
+    .interview-divider:last-of-type {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .interview-page {
+    padding: 0.75rem;
+  }
+
+  .interview-layout {
+    flex-direction: column;
+    border-radius: 0.75rem;
+  }
+
+  .interview-divider {
+    width: 100%;
+    height: 1px;
+    background: $border-color;
+  }
+
+  .interview-nav {
+    width: 100%;
+    padding: 1rem;
+    flex-direction: row;
+    gap: 0.5rem;
+
+    .nav-content {
+      flex-direction: row;
+      width: 100%;
+      gap: 0.25rem;
+    }
+
+    &__label {
+      display: none;
+    }
+
+    &__item {
+      flex: 1;
+      justify-content: center;
+      font-size: 0.78rem;
+      padding: 0.6rem;
+    }
+  }
+
+  .interview-content {
+    padding: 1.25rem 1rem;
+    max-height: unset;
+  }
+
+  // Show sidebar as inline on mobile
+  .interview-sidebar {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    padding: 1.25rem;
+
+    .match-score,
+    .skill-gaps {
+      flex: 1;
+      min-width: 200px;
+    }
+  }
+
+  .interview-layout .interview-divider:last-of-type {
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  .interview-nav {
+    .nav-content {
+      flex-wrap: wrap;
+    }
+
+    &__item {
+      font-size: 0.72rem;
+      gap: 0.4rem;
+    }
+  }
+
+  .q-card__header {
+    padding: 0.85rem;
+  }
+
+  .q-card__body {
+    padding: 0 0.85rem 0.85rem;
   }
 }

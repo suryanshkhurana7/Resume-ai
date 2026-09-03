@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import "../auth.form.scss";
 import { useNavigate, Link } from "react-router";
 import { useAuth } from "../hooks/useAuth";
+import Loading from "../../../components/Loading/Loading";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -17,11 +19,7 @@ const Register = () => {
   };
 
   if (loading) {
-    rteurn(
-      <main>
-        <h1>Loading......</h1>
-      </main>,
-    );
+    return <Loading message="Creating your account..." />;
   }
 
   return (
@@ -67,7 +65,7 @@ const Register = () => {
             />
           </div>
 
-          <button className="button primary-button">Login</button>
+          <button className="button primary-button">Register</button>
         </form>
 
         <p>
