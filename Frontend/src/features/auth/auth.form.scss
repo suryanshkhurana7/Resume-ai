@@ -10,16 +10,29 @@ $text-muted: #7c8498;
 $accent: #6c5ce7;
 $accent-light: #a29bfe;
 $accent-glow: rgba(108, 92, 231, 0.2);
-$font-stack: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+$font-stack:
+  "Inter",
+  system-ui,
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  Roboto,
+  sans-serif;
 
 // ── Auth Form Container ──────────────────────────────────────────────────────
 main {
   min-height: 100vh;
   width: 100%;
   display: flex;
+  flex-direction: column;
+  gap: 30px;
   justify-content: center;
   align-items: center;
-  background: radial-gradient(ellipse at 50% 0%, rgba(108, 92, 231, 0.08) 0%, $bg-page 60%);
+  background: radial-gradient(
+    ellipse at 50% 0%,
+    rgba(108, 92, 231, 0.08) 0%,
+    $bg-page 60%
+  );
   padding: 1rem;
 
   .from-container {
@@ -78,7 +91,9 @@ main {
       color: $text-primary;
       font-size: 0.9rem;
       font-family: $font-stack;
-      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+      transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
 
       &::placeholder {
         color: #586173;

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import "../styles/home.scss";
 import { useInterview } from "../hooks/useInterview.js";
 import { useNavigate } from "react-router";
