@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "https://resume-ai-two-silk.vercel.app",
+    origin: ["https://resume-ai-two-silk.vercel.app", "http://localhost:5173"],
     credentials: true,
   }),
 );
