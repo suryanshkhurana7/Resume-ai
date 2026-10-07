@@ -16,7 +16,7 @@ app.use(
 const authRouter = require("./routes/auth.routes");
 const interviewRouter = require("./routes/interview.routes");
 
-app.use("/", (req, res) => {
+app.get("/", (req, res) => {
   res.send("Backend is running!");
 });
 app.use("/api/auth", authRouter);
