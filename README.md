@@ -19,13 +19,13 @@ An AI-powered full-stack interview preparation platform that analyzes your resum
 
 ## 🛠️ Tech Stack
 
-| Layer        | Technologies                                                      |
-| ------------ | ----------------------------------------------------------------- |
-| **Frontend** | React 19, Vite, React Router, SCSS, Axios                        |
-| **Backend**  | Node.js, Express 5, Mongoose, JWT, bcrypt, Multer, cookie-parser |
-| **AI**       | Google Gemini API (`gemini-3.6-flash`), Zod schema validation     |
-| **PDF**      | pdf-parse (extraction), Puppeteer (generation)                    |
-| **Database** | MongoDB                                                           |
+| Layer        | Technologies                                                       |
+| ------------ | ------------------------------------------------------------------ |
+| **Frontend** | React 19, Vite, React Router, SCSS, Axios                          |
+| **Backend**  | Node.js, Express 5, Mongoose, JWT, bcrypt, Multer, cookie-parser   |
+| **AI**       | Google Gemini API (`gemini-3.5-flash-lite`), Zod schema validation |
+| **PDF**      | pdf-parse (extraction), Puppeteer (generation)                     |
+| **Database** | MongoDB                                                            |
 
 ---
 
@@ -111,21 +111,21 @@ The frontend runs on `http://localhost:5173`.
 
 ### Authentication
 
-| Method | Endpoint             | Description                  | Access  |
-| ------ | -------------------- | ---------------------------- | ------- |
-| POST   | `/api/auth/register` | Register a new user          | Public  |
-| POST   | `/api/auth/login`    | Login with email & password  | Public  |
-| GET    | `/api/auth/logout`   | Logout & blacklist token     | Public  |
-| GET    | `/api/auth/get-me`   | Get current user details     | Private |
+| Method | Endpoint             | Description                 | Access  |
+| ------ | -------------------- | --------------------------- | ------- |
+| POST   | `/api/auth/register` | Register a new user         | Public  |
+| POST   | `/api/auth/login`    | Login with email & password | Public  |
+| GET    | `/api/auth/logout`   | Logout & blacklist token    | Public  |
+| GET    | `/api/auth/get-me`   | Get current user details    | Private |
 
 ### Interview Reports
 
-| Method | Endpoint                                      | Description                                | Access  |
-| ------ | --------------------------------------------- | ------------------------------------------ | ------- |
-| POST   | `/api/interview/`                             | Generate interview report (multipart form) | Private |
-| GET    | `/api/interview/`                             | Get all reports for logged-in user         | Private |
-| GET    | `/api/interview/report/:interviewId`          | Get a specific report by ID                | Private |
-| POST   | `/api/interview/resume/pdf/:interviewReportId`| Generate & download tailored resume PDF    | Private |
+| Method | Endpoint                                       | Description                                | Access  |
+| ------ | ---------------------------------------------- | ------------------------------------------ | ------- |
+| POST   | `/api/interview/`                              | Generate interview report (multipart form) | Private |
+| GET    | `/api/interview/`                              | Get all reports for logged-in user         | Private |
+| GET    | `/api/interview/report/:interviewId`           | Get a specific report by ID                | Private |
+| POST   | `/api/interview/resume/pdf/:interviewReportId` | Generate & download tailored resume PDF    | Private |
 
 ### Generate Interview Report — Request Body
 

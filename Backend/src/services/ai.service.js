@@ -14,8 +14,14 @@ async function generateContentWithRetry(modelArgs, maxRetries = 3) {
     } catch (error) {
       if (i === maxRetries - 1) throw error;
       const errorMsg = error.message || JSON.stringify(error) || "";
-      if (errorMsg.includes("503") || errorMsg.includes("UNAVAILABLE") || error.status === 503) {
-        console.warn(`[Gemini API] 503 Service Unavailable. Retrying in ${delay}ms... (Attempt ${i + 1} of ${maxRetries})`);
+      if (
+        errorMsg.includes("503") ||
+        errorMsg.includes("UNAVAILABLE") ||
+        error.status === 503
+      ) {
+        console.warn(
+          `[Gemini API] 503 Service Unavailable. Retrying in ${delay}ms... (Attempt ${i + 1} of ${maxRetries})`,
+        );
         await new Promise((resolve) => setTimeout(resolve, delay));
         delay *= 2;
       } else {
@@ -172,7 +178,7 @@ Self Description: ${selfDescription}
 Job Description: ${jobDescription}`;
 
   const response = await generateContentWithRetry({
-    model: "gemini-3.6-flash",
+    model: "gemini-3.5-flash-lite",
     contents: prompt,
     config: {
       responseMimeType: "application/json",
@@ -253,7 +259,7 @@ async function generateResumePdf({ resume, selfDescription, jobDescription }) {
                     `;
 
   const response = await generateContentWithRetry({
-    model: "gemini-3.6-flash",
+    model: "gemini-3.5-flash-lite",
     contents: prompt,
     config: {
       responseMimeType: "application/json",
